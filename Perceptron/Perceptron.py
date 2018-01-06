@@ -77,4 +77,3 @@ for line in wx:
 		label.append(int(np.sign(x)))
 
 print("\nLable of testing data \n",label)
-
