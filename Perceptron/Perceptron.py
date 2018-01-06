@@ -1,17 +1,4 @@
 
-
-'''
-Course: CS 549
-Instructor: Christino Tamon 
-Steven(Chia-Hsien) Hu
-Home Work 1: Perceptron
-
-
-'''
-
-
-
-
 import numpy as np
 from numpy import array
 import matplotlib.pyplot as plt  
