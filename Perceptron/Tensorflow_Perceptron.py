@@ -47,6 +47,7 @@ test_feature, test_label = Feature_label(test)
 
 
 
+
 #perceptron active function with tf: if x>0 set y0 = 1 otherwise y0=0
 #return 0 or 1
 def step(x):
@@ -57,18 +58,19 @@ def step(x):
 
 
 #tensorflow variable, weight and bias
-w0=tf.Variable(tf.random_uniform([1024,num_neuron], -1.0, 1.0)) # 3*1 matrix
+w0=tf.Variable(tf.random_uniform([inputfeature,num_neuron], -1.0, 1.0)) # 3*1 matrix
 b0 = tf.Variable(tf.zeros([1])+0.01)
 
 
-#training example data frame
-training_feature_holder= tf.placeholder(tf.float32, shape=(training_inputraw,inputfeature))
-training_label_holder= tf.placeholder(tf.float32, shape=(training_inputraw,1))
-test_feature_holder=tf.placeholder(tf.float32, shape=(testing_inputraw,inputfeature))
-test_label_holder=tf.placeholder(tf.float32, shape=(testing_inputraw,1))
+#training example data frame shape =(None, ) means the number of instance you feed with future data in while you run sess 
+ # training_feature_holder= tf.placeholder(tf.float32, shape=(training_inputraw,inputfeature))
+# training_label_holder= tf.placeholder(tf.float32, shape=(training_inputraw,1))
 
-Xholder= tf.placeholder(tf.float32, shape=[])
-Yholder= tf.placeholder(tf.float32, shape=(training_inputraw,1))
+training_feature_holder= tf.placeholder(tf.float32, shape=(None,inputfeature))
+training_label_holder= tf.placeholder(tf.float32, shape=(None,1))
+
+Xholder= tf.placeholder(tf.float32, shape=[training_inputraw,inputfeature])
+Yholder= tf.placeholder(tf.float32, shape=[training_inputraw,1])
 
 #output of prediction y0
 y0 = step(tf.matmul(Xholder,w0))
