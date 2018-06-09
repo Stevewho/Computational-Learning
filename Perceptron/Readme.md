@@ -6,8 +6,8 @@ Apply perceptron
 
 ## summary
 Training data has 792 instances, 1024 features, and 1 label.
-the input of training data  is a (792,1025) matrix
+The input of training data is a (792,1025) matrix.
 
-testing data without the label is for submitting the assignment of the course 
+Testing data without the label is for submitting the assignment of Clarkson course 
 
 
