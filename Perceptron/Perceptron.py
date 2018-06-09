@@ -2,22 +2,15 @@
 
 '''
 Course: CS 549
-Instructor: Christino Tamon 
-Steven(Chia-Hsien) Hu
 Home Work 1: Perceptron
-
-
 '''
-
-
-
 
 import numpy as np
 from numpy import array
 import matplotlib.pyplot as plt  
+from sklearn.model_selection import train_test_split
 
-TrainRawData= open("train-a1-449.txt", 'r+')
-TestRawData=open("test-a1-449.txt")
+TrainRawData= open("data-a1-449.txt", 'r+')
 
 
 tem=[]
@@ -36,13 +29,15 @@ for line in TrainRawData:
 
 #array dataframe
 dataset= np.array(tem, dtype = np.float).reshape((792,1025))
+train, test=train_test_split(dataset, test_size=0.1, random_state=42)
+print(test.shape)
 
+print('test data has %s rows' %len(test[:,]))
 
 #function for checking mistake
-def mistake_finder(w, dataset):
+def mistake_finder(w, train):
 	result = None
 	for i in dataset:
-		
 		y=int(i[-1])
 		x=np.array(i[0:-1])
 		if int(np.sign(w.T.dot(x))) !=y:
@@ -53,15 +48,13 @@ def mistake_finder(w, dataset):
 #function for running perceptron
 def pla(dataset):
 	w = np.zeros(1024)
-
 	while mistake_finder(w, dataset) is not None:
 		x, y = mistake_finder(w, dataset)
 		w += y * x
 	return w
 
-
 #get the wight
-w = pla(dataset)
+w = pla(train)
 
 print("Weight vector\n",w)
 # np.savetxt("Weight_Vector.txt", w)
@@ -70,24 +63,23 @@ print("Weight vector\n",w)
 #===testing Data====
 
 #reshape data format as a array
-tem=[]
-for line in TestRawData:
-	line=line.rstrip()
-	tem.append(line.split(" "))
-	
-testdataset= np.array(tem, dtype = np.float).reshape((8,1024))
-
+test_data=test[:,0:1024]
+test_label=test[:,-1]
 
 w=np.array(w).reshape((1,1024))
 
 #mutiply weight and testdata
-wx=(w.dot(testdataset.T))
-
+wx=(w.dot(test_data.T))
 
 label=[]
 for line in wx:
 	for x in line:
 		label.append(int(np.sign(x)))
 
+output = np.array(label)
+error = sum(test_label - output)
+print("error rate is %s" %(error/len(test[:,])))
 print("\nLable of testing data \n",label)
+
+
 
