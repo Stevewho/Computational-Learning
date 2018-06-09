@@ -11,3 +11,8 @@ The input of training data is a (792,1025) matrix.
 Testing data without the label is for submitting the assignment of Clarkson course 
 
 
+## requirement
+
+python 3
+tensorflow 1.6
+
